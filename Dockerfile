@@ -23,21 +23,22 @@ RUN apt-get -y update && apt-get install -y \
     libluabind-dev \
     libluajit-5.1-dev \
     pkg-config
-    
-RUN mkdir -p /osrm-src \
- && mkdir -p /osrm-build \
+
+RUN mkdir -p /osrm-build \
  && mkdir -p /osrm-data
- 
+
 WORKDIR /osrm-build
 
-RUN git clone https://github.com/DennisOSRM/Project-OSRM.git /osrm-src \
+RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.0.0.tar.gz -o v5.0.0.tar.gz \
+ && tar xzf v5.0.0.tar.gz \
+ && mv osrm-backend-5.0.0 /osrm-src \
  && cmake /osrm-src \
  && make \
  && mv /osrm-src/profiles/car.lua profile.lua \
  && mv /osrm-src/profiles/lib/ lib \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
  && rm -rf /osrm-src
- 
+
 # Cleanup --------------------------------
 
 RUN apt-get clean \

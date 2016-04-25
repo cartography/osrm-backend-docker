@@ -7,16 +7,15 @@ _sig() {
 
 if [ "$1" = 'osrm' ]; then
   trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
-  
+
   if [ ! -f $DATA_PATH/$2.osrm ]; then
     if [ ! -f $DATA_PATH/$2.osm.pbf ]; then
       curl $3 > $DATA_PATH/$2.osm.pbf
     fi
     ./osrm-extract $DATA_PATH/$2.osm.pbf
-    ./osrm-prepare $DATA_PATH/$2.osrm
-    rm $DATA_PATH/$2.osm.pbf
+    ./osrm-contract $DATA_PATH/$2.osrm
   fi
-  
+
   ./osrm-routed $DATA_PATH/$2.osrm --max-table-size 8000 &
   child=$!
   wait "$child"
