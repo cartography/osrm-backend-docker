@@ -35,17 +35,20 @@ RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.0.0
 COPY profiles/* /osrm-src/profiles/
 RUN cmake /osrm-src \
  && make \
- && mv /osrm-src/profiles/car.lua profile.lua \
- && mv /osrm-src/profiles/lib/ lib \
+ && mv /osrm-src/profiles/ profiles \
+ && mv profiles/lib/ lib \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
- && rm -rf /osrm-src
+ && rm -rf /osrm-src \
+ && rm v5.0.0.tar.gz
 
-# Cleanup --------------------------------
+# --------------------------------
 
 RUN apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-# Publish --------------------------------
+VOLUME /osrm-build/profiles
+
+# --------------------------------
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh

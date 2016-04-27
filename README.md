@@ -25,22 +25,22 @@ Open Source Routing Machine (OSRM) Docker Image [\[Docker Hub\]](https://hub.doc
 ## Usage
 Run it:  
 ```
-docker run -d -p 5000:5000 cartography/osrm-backend-docker:latest osrm label "http://your/path/to/data.osm.pbf"
+docker run -d -p 5000:5000 cartography/osrm-backend-docker:latest osrm profile "http://your/path/to/data.osm.pbf"
 ```  
 
 Explanation:  
-- `-d` - run container in background and print container ID 
+- `-d` - run container in background and print container ID
 - `-p 5000:5000` - publish a container port to host
 - `osrm` - go via entrypoint script, w/o osrm keyword - classic mode
-- `label` - your label of OSM data
+- `profile` - the profile you want to run
 - `url` - link to OSM data in PBF format
 
 For example:  
 ```
-docker run -d -p 5000:5000 --name osrm-api cartography/osrm-backend-docker:latest osrm California "http://download.geofabrik.de/north-america/us/california-latest.osm.pbf"
+docker run -d -p 5000:5000 --name osrm-api cartography/osrm-backend-docker:latest osrm car "http://download.geofabrik.de/north-america/us/california-latest.osm.pbf"
 ```
 
-## Start OSRM Frontend
+## Start OSRM Frontend (currently not supporting v5.0.0)
 
     docker run -d --link osrm-api:api --name osrm-mos-front --restart=always -p 8080:80 cartography/osrm-frontend-docker
 
