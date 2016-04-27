@@ -31,8 +31,9 @@ WORKDIR /osrm-build
 
 RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.0.0.tar.gz -o v5.0.0.tar.gz \
  && tar xzf v5.0.0.tar.gz \
- && mv osrm-backend-5.0.0 /osrm-src \
- && cmake /osrm-src \
+ && mv osrm-backend-5.0.0 /osrm-src
+COPY profiles/* /osrm-src/profiles/.
+RUN cmake /osrm-src \
  && make \
  && mv /osrm-src/profiles/car.lua profile.lua \
  && mv /osrm-src/profiles/lib/ lib \
