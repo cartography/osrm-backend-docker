@@ -61,6 +61,9 @@ function way_function (way)
 
   local name = way:get_value_by_key("name")
   local oneway = way:get_value_by_key("oneway")
+  if oneway and "reversible" == oneway then
+    return
+  end
 
   way.name = name
 
@@ -72,15 +75,6 @@ function way_function (way)
     way.backward_speed = speed_back
   end
 
-  if oneway == "no" or oneway == "0" or oneway == "false" then
-    way.direction = Way.bidirectional
-  elseif oneway == "-1" then
-    way.direction = Way.opposite
-  elseif oneway == "yes" or oneway == "1" or oneway == "true" then
-    way.direction = Way.oneway
-  else
-    way.direction = Way.bidirectional
-  end
 
   way.type = 1
   return 1
