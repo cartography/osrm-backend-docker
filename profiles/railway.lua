@@ -25,8 +25,8 @@ function limit_speed(speed, limits)
   -- don't use ipairs(), since it stops at the first nil value
   for i=1, #limits do
     limit = limits[i]
-    if limit ~= nil and limit &gt; 0 then
-      if limit &lt; speed then
+    if limit ~= nil and limit > 0 then
+      if limit < speed then
         return limit        -- stop at first speedlimit that's smaller than speed
       end
     end
