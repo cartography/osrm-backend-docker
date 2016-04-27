@@ -38,12 +38,13 @@ function node_function (node)
 end
 
 function way_function (way)
+  local railway = way:get_value_by_key("railway")
+  local service = way:get_value_by_key("service")
+  local usage = way:get_value_by_key("usage")
 
- if way.tags:Holds("railway") then
-
-  local railway = way.tags:Find("railway")
-  local service = way.tags:Find("service")
-  local usage = way.tags:Find("usage")
+  if not (railway and railway ~= "")  then
+   return
+  end
 
   -- Если не рельсовый путь
   if railway ~= "rail"  then
@@ -58,8 +59,8 @@ function way_function (way)
     return
   end
 
-  local name = way.tags:Find("name")
-  local oneway = way.tags:Find("oneway")
+  local name = way:get_value_by_key("name")
+  local oneway = way:get_value_by_key("oneway")
 
   way.name = name
 
@@ -83,6 +84,5 @@ function way_function (way)
 
   way.type = 1
   return 1
- end
 
 end
