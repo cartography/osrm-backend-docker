@@ -13,7 +13,7 @@ if [ "$1" = 'osrm' ]; then
       curl $3 > $DATA_PATH/$2.osm.pbf
     fi
     ./osrm-extract $DATA_PATH/$2.osm.pbf
-    ./osrm-prepare $DATA_PATH/$2.osrm
+    ./osrm-contract $DATA_PATH/$2.osrm
     rm $DATA_PATH/$2.osm.pbf
   fi
   
