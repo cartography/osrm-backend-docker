@@ -16,11 +16,13 @@ if [ "$1" = 'osrm' ]; then
     exit 1
   fi
 
+  ln -s profiles/$2.lua profile.lua
+
   if [ ! -f $DATA_PATH/$2.osrm ]; then
     if [ ! -f $DATA_PATH/$2.osm.pbf ]; then
       curl $3 > $DATA_PATH/$2.osm.pbf
     fi
-    ./osrm-extract -p profiles/$2.lua $DATA_PATH/$2.osm.pbf
+    ./osrm-extract -p profile.lua $DATA_PATH/$2.osm.pbf
     ./osrm-contract $DATA_PATH/$2.osrm
   fi
 
