@@ -3,9 +3,9 @@
 
 speed_profile = {
   ["default"] = 0,
-  ["subway"] = 0,
-  ["tram"] = 50,
-  ["rail"] = 0,
+  ["subway"] = 50,
+  ["tram"] = 0,
+  ["rail"] = 0
 }
 
 properties.continue_straight_at_waypoint = true
