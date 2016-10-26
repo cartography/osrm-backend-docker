@@ -496,8 +496,11 @@ function way_function (way, result)
     end
   end
 
+  
+  local psv = way:get_value_by_key("psv")
+
   -- Set direction according to tags on way
-  if obey_oneway then
+  if obey_oneway and "opposite_lane" ~= psv then
     if oneway == "-1" then
       result.forward_mode = mode.inaccessible
     elseif oneway == "yes" or
