@@ -5,8 +5,10 @@ MAINTAINER Alex Newman <alex@newman.pro>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install necessary packages for proper system state
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 RUN apt-get -y update && apt-get install -y \
     build-essential \
+    g++-4.9 \
     cmake \
     curl \
     git \
