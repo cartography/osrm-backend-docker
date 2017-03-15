@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Alex Newman <alex@newman.pro>
 
 # Let the container know that there is no TTY
@@ -13,20 +13,13 @@ RUN apt-get -y update && apt-get install -y \
     libboost-all-dev \
     libbz2-dev \
     libstxxl-dev \
-    libstxxl-doc \
-    libstxxl1 \
+    libstxxl1v5 \
     libtbb-dev \
     libxml2-dev \
     libzip-dev \
-    lua5.1 \
-    liblua5.1-0-dev \
-    libluabind-dev \
-    libluajit-5.1-dev \
-    pkg-config \
-    software-properties-common
-    
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-RUN apt-get -y update && apt-get install -y g++-4.9
+    lua5.2 \
+    liblua5.2-dev \
+    pkg-config
 
 RUN mkdir -p /osrm-build \
  && mkdir -p /osrm-data
