@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Alex Newman <alex@newman.pro>
 
 # Let the container know that there is no TTY
@@ -13,15 +13,12 @@ RUN apt-get -y update && apt-get install -y \
     libboost-all-dev \
     libbz2-dev \
     libstxxl-dev \
-    libstxxl-doc \
-    libstxxl1 \
+    libstxxl1v5 \
     libtbb-dev \
     libxml2-dev \
     libzip-dev \
-    lua5.1 \
-    liblua5.1-0-dev \
-    libluabind-dev \
-    libluajit-5.1-dev \
+    lua5.2 \
+    liblua5.2-dev \
     pkg-config
 
 RUN mkdir -p /osrm-build \
@@ -29,20 +26,20 @@ RUN mkdir -p /osrm-build \
 
 WORKDIR /osrm-build
 
-RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.2.6.tar.gz -o v5.2.6.tar.gz \
- && tar xzf v5.2.6.tar.gz \
- && mv osrm-backend-5.2.6 /osrm-src \
+RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.6.0.tar.gz -o v5.6.0.tar.gz \
+ && tar xzf v5.6.0.tar.gz \
+ && mv osrm-backend-5.6.0 /osrm-src \
  && cmake /osrm-src \
  && make \
- && mv /osrm-src/profiles/car.lua profile.lua \
- && mv /osrm-src/profiles/lib/ lib \
+ && mv /osrm-src/profiles profiles \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
  && rm -rf /osrm-src
 
 # Cleanup --------------------------------
 
 RUN apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -f v5.6.0.tar.gz
 
 # Publish --------------------------------
 
