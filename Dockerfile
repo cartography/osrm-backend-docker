@@ -31,7 +31,7 @@ RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.6.0
  && mv osrm-backend-5.6.0 /osrm-src \
  && cmake /osrm-src \
  && make \
- && mv /osrm-src/profiles/car.lua profile.lua \
+ && mv /osrm-src/profiles/car.lua profiles/car.lua \
  && mv /osrm-src/profiles/lib/ lib \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
  && rm -rf /osrm-src
