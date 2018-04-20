@@ -38,8 +38,7 @@ RUN cmake /osrm-src \
  && mv /osrm-src/profiles/ profiles \
  && mv profiles/lib/ lib \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
- && rm -rf /osrm-src \
- && rm -f v5.17.0.tar.gz
+ && rm -rf /osrm-src 
 
 # --------------------------------
 
