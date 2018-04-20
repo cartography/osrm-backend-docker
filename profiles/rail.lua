@@ -14,6 +14,10 @@ properties.traffic_signal_penalty        = 7     -- seconds
 properties.u_turn_penalty                = 99999
 
 function node_function (node, result)
+  local railway = node:get_value_by_key("railway")
+
+  result.barrier = (railway == "buffer_stop" or railway == "derail")
+  result.traffic_lights = false
 end
 
 function way_function (way, result)
