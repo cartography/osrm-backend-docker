@@ -29,9 +29,9 @@ RUN mkdir -p /osrm-build \
 
 WORKDIR /osrm-build
 
-RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.7.0.tar.gz -o v5.7.0.tar.gz \
- && tar xzf v5.7.0.tar.gz \
- && mv osrm-backend-5.7.0 /osrm-src
+RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.5.0.tar.gz -o v5.5.0.tar.gz \
+ && tar xzf v5.5.0.tar.gz \
+ && mv osrm-backend-5.5.0 /osrm-src
 COPY profiles/* /osrm-src/profiles/
 RUN cmake /osrm-src \
  && make \
@@ -39,7 +39,7 @@ RUN cmake /osrm-src \
  && mv profiles/lib/ lib \
  && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
  && rm -rf /osrm-src  \
- && rm -f v5.7.0.tar.gz
+ && rm -f v5.5.0.tar.gz
 
 # --------------------------------
 
