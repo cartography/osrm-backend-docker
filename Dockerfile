@@ -29,11 +29,18 @@ RUN mkdir -p /osrm-build \
 
 WORKDIR /osrm-build
 
+<<<<<<< HEAD
 RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.4.0.tar.gz -o v5.4.0.tar.gz \
  && tar xzf v5.4.0.tar.gz \
  && mv osrm-backend-5.4.0 /osrm-src
 COPY profiles/* /osrm-src/profiles/
 RUN cmake /osrm-src \
+=======
+RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.2.6.tar.gz -o v5.2.6.tar.gz \
+ && tar xzf v5.2.6.tar.gz \
+ && mv osrm-backend-5.2.6 /osrm-src \
+ && cmake /osrm-src \
+>>>>>>> master
  && make \
  && mv /osrm-src/profiles/ profiles \
  && mv profiles/lib/ lib \
