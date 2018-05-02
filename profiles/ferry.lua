@@ -32,8 +32,6 @@ function way_function (way, result)
   result.forward_speed = speed
   result.backward_speed = speed
 
-  result.name = data.name
-
   result.forward_mode = mode.ferry
   result.backward_mode = mode.ferry
   
