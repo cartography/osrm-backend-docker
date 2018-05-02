@@ -2,12 +2,11 @@
 
 
 speed_profile = {
-  ["default"] = 0,
-  ["ferry"] = 50
+  ["default"] = 50
 }
 
 properties.continue_straight_at_waypoint = true
-properties.use_turn_restrictions         = true
+properties.use_turn_restrictions         = false
 properties.traffic_signal_penalty        = 7     -- seconds
 properties.u_turn_penalty                = 99999
 
@@ -16,10 +15,10 @@ function node_function (node, result)
 end
 
 function way_function (way, result)
-  local ferry = way:get_value_by_key("ferry")
+  local route = way:get_value_by_key("route")
   local name = way:get_value_by_key("name")
 
-  if ferry == nil or ferry == "" then
+  if route != "ferry" then
     return
   end
 
@@ -27,12 +26,15 @@ function way_function (way, result)
     result.name = name
   end
 
-  result.forward_mode = mode.ferry
-  result.backward_mode = mode.ferry
   
-  local speed = speed_profile[ferry] or speed_profile['default']
+  local speed = speed_profile['default']
 
   result.forward_speed = speed
   result.backward_speed = speed
+
+  result.name = data.name
+
+  result.forward_mode = mode.ferry
+  result.backward_mode = mode.ferry
   
 end
