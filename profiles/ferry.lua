@@ -18,7 +18,7 @@ function way_function (way, result)
   local route = way:get_value_by_key("route")
   local name = way:get_value_by_key("name")
 
-  if route != "ferry" then
+  if route ~= "ferry" then
     return
   end
 
