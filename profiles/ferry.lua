@@ -27,8 +27,8 @@ function way_function (way, result)
     result.name = name
   end
 
-  result.forward_mode = mode.route
-  result.backward_mode = mode.route
+  result.forward_mode = mode.ferry
+  result.backward_mode = mode.ferry
   
   local speed = speed_profile[ferry] or speed_profile['default']
 
