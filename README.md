@@ -1,4 +1,4 @@
-# Dockerfile for osrm-backend
+# Dockerfile for osrm-backend [![CircleCI](https://circleci.com/gh/entur/osrm-backend-docker/tree/master.svg?style=svg)](https://circleci.com/gh/entur/osrm-backend-docker/tree/master)
 This container run [osrm-backend](https://github.com/Project-OSRM/osrm-backend) project.
 Open Source Routing Machine (OSRM) Docker Image [\[Docker Hub\]](https://hub.docker.com/r/cartography/osrm-backend-docker/)
 
