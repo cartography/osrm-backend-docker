@@ -8,8 +8,7 @@ aliases:
 - &docker-login
   name: Docker login
   command: |
-    echo 'export GCLOUD_SERVICE_KEY="$GCLOUD_SERVICE_KEY"' >> $BASH_ENV
-    /tools/docker_login.sh
+    docker login -u _json_key --password-stdin https://eu.gcr.io <<< "${DOCKER_PASSWORD}"
 - &docker-build-and-push
   name: Docker build and push
   command: |
@@ -26,10 +25,10 @@ aliases:
 jobs:
   build:
     docker:
-    - image: eu.gcr.io/carbon-1287/circleci-toolbox-image
+    - image: eu.gcr.io/entur-system-1287/circleci-toolbox-image
       auth:
         username: _json_key
-        password: $GCLOUD_SERVICE_KEY
+        password: $DOCKER_PASSWORD
     steps:
     - checkout
     - run: *GCP-auth
