@@ -23,7 +23,7 @@ aliases:
   - &docker-build-and-push
     name: Docker build and push
     command: |
-      IMAGE="eu.gcr.io/entur-system-1287/osrm-api
+      IMAGE="eu.gcr.io/entur-system-1287/osrm-api"
       echo "Image: ${IMAGE}"
       docker build -t $IMAGE .
       docker tag $IMAGE "${IMAGE}":"${VERSION}"
