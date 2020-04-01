@@ -39,8 +39,7 @@ jobs:
     environment:
       DEBIAN_FRONTEND: "noninteractive"
     steps:
-      - attach_workspace:
-          at: ~/project
+      - checkout
       - setup_remote_docker:
           docker_layer_caching: true
       - run: *create-image-version
