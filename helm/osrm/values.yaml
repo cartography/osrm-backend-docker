@@ -1,0 +1,19 @@
+replicas: 1
+
+rollingUpdate:
+  maxSurge: 1
+  maxUnavailable: 1
+
+resources:
+  cpuLimit: 1500m
+  memLimit: 3500Mi
+  cpuRequest: 200m
+  memRequest: 500Mi
+
+image:
+  identifier: ${artifact.metadata.image}
+  imagePullPolicy: Always
+
+service:
+  http:
+    internalPort: 5000
