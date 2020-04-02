@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "common.labels" . | indent 4 }}
+    app: osrm-bus
 spec:
   progressDeadlineSeconds: 600
   replicas: {{ .Values.replicas }}

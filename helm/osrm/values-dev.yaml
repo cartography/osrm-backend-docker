@@ -1,0 +1,3 @@
+cronJob:
+  gcpProject: carbon-1287
+  slackUrl: ror-dev-slack-url

@@ -1,0 +1,82 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ template "app.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "common.labels" . | indent 4 }}
+    app: osrm-cronjob
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+            - command:
+                - ./redeploy_generic_deployment.sh
+              env:
+                - name: DEPLOYMENT
+                  value: osrm-bus
+                - name: CLOUDSDK_CORE_PROJECT
+                  value: {{ .Values.cronJob.gcpProject }}
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: slack-url
+                      name: {{ .Values.cronJob.slackUrl }}
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              imagePullPolicy: IfNotPresent
+              name: redeploy-osrm-bus
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+            - command:
+                - ./redeploy_generic_deployment.sh
+              env:
+                - name: DEPLOYMENT
+                  value: osrm-rail
+                - name: CLOUDSDK_CORE_PROJECT
+                  value: {{ .Values.cronJob.gcpProject }}
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: slack-url
+                      name: {{ .Values.cronJob.slackUrl }}
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              imagePullPolicy: IfNotPresent
+              name: redeploy-osrm-rail
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+            - command:
+                - ./redeploy_generic_deployment.sh
+              env:
+                - name: DEPLOYMENT
+                  value: osrm-water
+                - name: CLOUDSDK_CORE_PROJECT
+                  value: {{ .Values.cronJob.gcpProject }}
+                - name: SLACK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: slack-url
+                      name: {{ .Values.cronJob.slackUrl }}
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              imagePullPolicy: IfNotPresent
+              name: redeploy-osrm-water
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: 0 2 * * *
+  successfulJobsHistoryLimit: 3
+  suspend: false

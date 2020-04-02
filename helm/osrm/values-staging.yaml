@@ -1,0 +1,3 @@
+cronJob:
+  gcpProject: radon-1287
+  slackUrl: ror-staging-slack-url
