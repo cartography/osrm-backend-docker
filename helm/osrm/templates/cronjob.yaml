@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ template "app.name" . }}
+  name: {{ template "app.name" . }}-redeploy-cronjob
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "common.labels" . | indent 4 }}

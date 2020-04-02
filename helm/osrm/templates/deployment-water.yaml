@@ -30,7 +30,7 @@ spec:
           command:
             - /docker-entrypoint.sh
             - osrm
-            - water
+            - ferry
             - https://storage.googleapis.com/marduk/osm/norway-latest.osm.pbf
           env:
             - name: TZ
