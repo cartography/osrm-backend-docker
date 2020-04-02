@@ -1,16 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "app.name" . }}
+  name: {{ template "app.name" . }}-rail
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "common.labels" . | indent 4 }}
+    app: osrm-rail
 spec:
   progressDeadlineSeconds: 600
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: {{ template "app.name" . }}
+      app: {{ template "app.name" . }}-rail
   strategy:
     rollingUpdate:
       maxSurge: {{ .Values.rollingUpdate.maxSurge }}
@@ -23,8 +24,6 @@ spec:
         app: osrm-rail
     spec:
       containers:
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
         - name: {{ .Chart.Name }}-rail
           image: {{ .Values.image.identifier }}
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
