@@ -30,7 +30,7 @@ spec:
                     secretKeyRef:
                       key: slack-url
                       name: {{ .Values.cronJob.slackUrl }}
-              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.1.2
               imagePullPolicy: IfNotPresent
               name: redeploy-osrm-bus
               resources: {}
@@ -48,7 +48,7 @@ spec:
                     secretKeyRef:
                       key: slack-url
                       name: {{ .Values.cronJob.slackUrl }}
-              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.1.2
               imagePullPolicy: IfNotPresent
               name: redeploy-osrm-rail
               resources: {}
@@ -66,7 +66,7 @@ spec:
                     secretKeyRef:
                       key: slack-url
                       name: {{ .Values.cronJob.slackUrl }}
-              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.0.1
+              image: eu.gcr.io/entur-system-1287/deployment-rollout-restart:0.1.2
               imagePullPolicy: IfNotPresent
               name: redeploy-osrm-water
               resources: {}
@@ -76,6 +76,8 @@ spec:
           restartPolicy: Never
           schedulerName: default-scheduler
           securityContext: {}
+          serviceAccount: cronjob-redeploy-{{ template "app.name" . }}
+          serviceAccountName: cronjob-redeploy-{{ template "app.name" . }}
           terminationGracePeriodSeconds: 30
   schedule: 0 2 * * *
   successfulJobsHistoryLimit: 3
