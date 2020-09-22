@@ -1,3 +1,4 @@
 cronJob:
   gcpProject: radon-1287
+  gcpBucketName: marduk-stage
   slackUrl: ror-staging-slack-url

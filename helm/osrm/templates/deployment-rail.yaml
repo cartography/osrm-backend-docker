@@ -31,7 +31,7 @@ spec:
             - /docker-entrypoint.sh
             - osrm
             - rail
-            - https://storage.googleapis.com/marduk/osm/norway-latest.osm.pbf
+            - https://storage.googleapis.com/{{ .Values.cronJob.gcpBucketName }}/osm/norway-latest.osm.pbf
           env:
             - name: TZ
               value: Europe/Oslo
