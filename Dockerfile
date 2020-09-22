@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Alex Newman <alex@newman.pro>
 
 # Let the container know that there is no TTY
@@ -14,7 +14,7 @@ RUN apt-get -y update && apt-get install -y \
     libbz2-dev \
     libstxxl-dev \
     libstxxl-doc \
-    libstxxl1 \
+    libstxxl1v5 \
     libtbb-dev \
     libxml2-dev \
     libzip-dev \
