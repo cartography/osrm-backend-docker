@@ -23,6 +23,20 @@ spec:
         {{- include "common.labels" . | indent 8 }}
         app: osrm-rail
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - osrm-bus
+                        - osrm-rail
+                        - osrm-water
+                topologyKey: kubernetes.io/hostname
+              weight: 100
       containers:
         - name: {{ .Chart.Name }}-rail
           image: {{ .Values.image.identifier }}

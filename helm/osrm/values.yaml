@@ -2,7 +2,7 @@ replicas: 1
 
 rollingUpdate:
   maxSurge: 1
-  maxUnavailable: 1
+  maxUnavailable: 0
 
 resources:
   cpuLimit: 3000m
