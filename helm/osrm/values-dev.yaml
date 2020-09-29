@@ -1,4 +1,4 @@
 cronJob:
-  gcpProject: carbon-1287
-  gcpBucketName: marduk
+  gcpProject: entur-ror-dev
+  gcpBucketName: marduk-dev
   slackUrl: ror-dev-slack-url
