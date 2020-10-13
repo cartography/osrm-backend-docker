@@ -30,7 +30,7 @@ metadata:
     {{- include "common.labels" . | indent 4 }}
 rules:
   - apiGroups:
-      - extensions
+      - apps
     resources:
       - deployments
     verbs:
