@@ -42,7 +42,7 @@ spec:
           image: {{ .Values.image.identifier }}
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           command:
-            - /docker-entrypoint.sh
+            - /deployments/docker-entrypoint.sh
             - osrm
             - ferry
             - https://storage.googleapis.com/{{ .Values.cronJob.gcpBucketName }}/osm/norway-latest.osm.pbf
