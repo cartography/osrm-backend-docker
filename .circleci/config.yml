@@ -52,7 +52,7 @@ workflows:
   build_test_deploy:
     jobs:
       - deploy-docker:
-          context: org-carbon
+          context: global
           filters:
             branches:
               only: rutebanken
