@@ -1,4 +1,4 @@
 cronJob:
-  gcpProject: neon-1287
+  gcpProject: entur-ror-prod
   gcpBucketName: marduk-production
   slackUrl: ror-prod-slack-url
