@@ -1,5 +1,6 @@
-FROM ubuntu:xenial
-MAINTAINER Alex Newman <alex@newman.pro>
+FROM ubuntu:xenial as builder
+
+ENV OSRM_VERSION=5.4.0
 
 # Let the container know that there is no TTY
 ENV DEBIAN_FRONTEND noninteractive
@@ -24,34 +25,51 @@ RUN apt-get -y update && apt-get install -y \
     libluajit-5.1-dev \
     pkg-config
 
-RUN mkdir -p /osrm-build \
- && mkdir -p /osrm-data
+RUN mkdir -p /osrm-build
 
 WORKDIR /osrm-build
 
-RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v5.4.0.tar.gz -o v5.4.0.tar.gz \
- && tar xzf v5.4.0.tar.gz \
- && mv osrm-backend-5.4.0 /osrm-src
+RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v${OSRM_VERSION}.tar.gz -o v${OSRM_VERSION}.tar.gz \
+ && tar xzf v${OSRM_VERSION}.tar.gz \
+ && mv osrm-backend-${OSRM_VERSION} /osrm-src
 COPY profiles/* /osrm-src/profiles/
 RUN cmake /osrm-src \
- && make \
- && mv /osrm-src/profiles/ profiles \
- && mv profiles/lib/ lib \
- && echo "disk=/tmp/stxxl,25000,syscall" > .stxxl \
- && rm -rf /osrm-src  \
- && rm -f v5.4.0.tar.gz
+ && make
 
-# --------------------------------
+
+FROM ubuntu:xenial
+WORKDIR /deployments
+COPY docker-entrypoint.sh .
+RUN chmod +x docker-entrypoint.sh
+RUN addgroup appuser && adduser --disabled-password appuser --ingroup appuser --gecos ""
+RUN mkdir osrm-data && chown appuser:appuser . && chown appuser:appuser osrm-data
+
+COPY --from=builder /osrm-build/lib* ./
+COPY --from=builder /osrm-build/osrm-datastore ./
+COPY --from=builder /osrm-build/osrm-extract ./
+COPY --from=builder /osrm-build/osrm-routed ./
+COPY --from=builder /osrm-build/osrm-contract ./
+COPY --from=builder osrm-src/profiles profiles
+RUN mv profiles/lib/ lib
+RUN echo "disk=/tmp/stxxl,25000,syscall" > .stxxl
+
+RUN apt-get -y update && apt-get install -y \
+    curl \
+    libstxxl1v5  \
+    libtbb2 \
+    libluajit-5.1 \
+    libboost-all-dev \
+    libluabind-dev
+
 
 RUN apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-VOLUME /osrm-build/profiles
+USER appuser
 
 # --------------------------------
 
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
+VOLUME /deployments/profiles
+ENTRYPOINT ["/deployments/docker-entrypoint.sh"]
 
 EXPOSE 5000

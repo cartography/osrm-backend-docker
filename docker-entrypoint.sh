@@ -1,5 +1,5 @@
 #!/bin/bash
-DATA_PATH=${DATA_PATH:="/osrm-data"}
+DATA_PATH=${DATA_PATH:="osrm-data"}
 set -e
 
 _sig() {
