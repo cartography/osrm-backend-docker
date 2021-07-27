@@ -1,4 +1,4 @@
-FROM ubuntu:xenial as builder
+FROM ubuntu:bionic as builder
 
 ENV OSRM_VERSION=5.4.0
 
@@ -33,11 +33,13 @@ RUN curl --silent -L https://github.com/Project-OSRM/osrm-backend/archive/v${OSR
  && tar xzf v${OSRM_VERSION}.tar.gz \
  && mv osrm-backend-${OSRM_VERSION} /osrm-src
 COPY profiles/* /osrm-src/profiles/
+# fix for https://github.com/Project-OSRM/osrm-backend/issues/5143#issuecomment-585481282
+RUN sed -i '/#include <utility>/a #undef BLOCK_SIZE' /osrm-src/include/util/range_table.hpp
 RUN cmake /osrm-src \
  && make
 
 
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 WORKDIR /deployments
 COPY docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
