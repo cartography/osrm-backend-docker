@@ -17,3 +17,4 @@ image:
 service:
   http:
     internalPort: 5000
+    externalPort: 80

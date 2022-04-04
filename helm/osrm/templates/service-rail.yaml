@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
     - name: http
-      port: {{ .Values.service.http.internalPort }}
+      port: {{ .Values.service.http.externalPort }}
       protocol: TCP
       targetPort: {{ .Values.service.http.internalPort }}
   selector:
