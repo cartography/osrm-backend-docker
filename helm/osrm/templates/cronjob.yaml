@@ -10,12 +10,8 @@ spec:
   concurrencyPolicy: Allow
   failedJobsHistoryLimit: 1
   jobTemplate:
-    metadata:
-      creationTimestamp: null
     spec:
       template:
-        metadata:
-          creationTimestamp: null
         spec:
           containers:
             - command:
@@ -76,7 +72,6 @@ spec:
           restartPolicy: Never
           schedulerName: default-scheduler
           securityContext: {}
-          serviceAccount: cronjob-redeploy-{{ template "app.name" . }}
           serviceAccountName: cronjob-redeploy-{{ template "app.name" . }}
           terminationGracePeriodSeconds: 30
   schedule: 0 2 * * *
