@@ -1,3 +1,4 @@
+env: dev
 cronJob:
   gcpProject: entur-ror-dev
   gcpBucketName: marduk-dev

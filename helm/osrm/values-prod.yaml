@@ -1,3 +1,4 @@
+env: prod
 cronJob:
   gcpProject: entur-ror-prod
   gcpBucketName: marduk-production

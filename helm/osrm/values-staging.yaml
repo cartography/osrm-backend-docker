@@ -1,3 +1,4 @@
+env: test
 cronJob:
   gcpProject: entur-ror-test
   gcpBucketName: marduk-test
