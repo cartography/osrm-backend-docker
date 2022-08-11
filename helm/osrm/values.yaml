@@ -1,7 +1,7 @@
 replicas: 2
 
 rollingUpdate:
-  maxSurge: 1
+  maxSurge: 2
   maxUnavailable: 0
 
 resources:
