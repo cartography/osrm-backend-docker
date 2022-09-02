@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "baseBranch": "rutebanken",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "google/cloud-sdk"
+      ],
+      "automerge": true,
+      "separateMinorPatch": false
+    }
+  ]
+}
