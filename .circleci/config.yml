@@ -22,6 +22,10 @@ aliases:
     name: Create new image version and store to env var and as file in workspace
     command: |
       echo "export VERSION=$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)"  >> $BASH_ENV
+  - &docker-build
+    name: Docker build
+    command: |
+      docker build .
   - &docker-build-and-push
     name: Docker build and push
     command: |
@@ -33,6 +37,14 @@ aliases:
       docker push "${IMAGE}":"${VERSION}"
 
 jobs:
+  build-docker:
+    <<: *google-sdk-container-config
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - run: *GCP-auth-docker
+      - run: *docker-build
   deploy-docker:
     <<: *google-sdk-container-config
     steps:
@@ -45,7 +57,14 @@ jobs:
       - run: *docker-build-and-push
 workflows:
   version: 2
-  build_test_deploy:
+  build:
+    jobs:
+      - build-docker:
+          context: global
+          filters:
+            branches:
+              ignore: rutebanken
+  build_deploy:
     jobs:
       - deploy-docker:
           context: global
