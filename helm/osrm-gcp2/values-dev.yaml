@@ -1,0 +1,5 @@
+env: dev
+cronJob:
+  gcpProject: entur-ror-dev
+  gcpBucketName: marduk-dev
+  slackUrl: ror-dev-slack-url
