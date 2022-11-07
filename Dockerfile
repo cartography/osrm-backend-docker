@@ -1,4 +1,8 @@
-FROM ubuntu:bionic as builder
+FROM ubuntu:bionic as base
+
+RUN apt-get update && apt-get -y upgrade
+
+FROM base as builder
 
 ENV OSRM_VERSION=5.4.0
 
@@ -6,7 +10,7 @@ ENV OSRM_VERSION=5.4.0
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install necessary packages for proper system state
-RUN apt-get -y update && apt-get install -y \
+RUN apt-get install -y \
     build-essential \
     cmake \
     curl \
@@ -39,7 +43,7 @@ RUN cmake /osrm-src \
  && make
 
 
-FROM ubuntu:bionic
+FROM base
 WORKDIR /deployments
 COPY docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
@@ -55,7 +59,7 @@ COPY --from=builder osrm-src/profiles profiles
 RUN mv profiles/lib/ lib
 RUN echo "disk=/tmp/stxxl,25000,syscall" > .stxxl
 
-RUN apt-get -y update && apt-get install -y \
+RUN apt-get install -y \
     curl \
     libstxxl1v5  \
     libtbb2 \
