@@ -2,7 +2,7 @@ version: 2
 aliases:
   - &google-sdk-container-config
     docker:
-      - image: google/cloud-sdk:423.0.0
+      - image: google/cloud-sdk:424.0.0
         auth:
           username: $DOCKERHUB_LOGIN
           password: $DOCKERHUB_PASSWORD
