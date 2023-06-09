@@ -1,5 +1,5 @@
 env: test
 cronJob:
   gcpProject: entur-ror-test
-  gcpBucketName: marduk-test
+  gcpBucketName: marduk-test/osm/norway-latest.osm.pbf
   slackUrl: ror-test-slack-url

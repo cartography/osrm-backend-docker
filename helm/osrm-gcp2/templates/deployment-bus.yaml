@@ -45,7 +45,7 @@ spec:
             - /deployments/docker-entrypoint.sh
             - osrm
             - bus
-            - https://storage.googleapis.com/{{ .Values.cronJob.gcpBucketName }}/osm/norway-latest.osm.pbf
+            - https://storage.googleapis.com/{{ .Values.cronJob.gcpBucketName }}
           env:
             - name: TZ
               value: Europe/Oslo

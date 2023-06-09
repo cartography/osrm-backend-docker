@@ -1,5 +1,5 @@
 env: prod
 cronJob:
   gcpProject: entur-ror-prod
-  gcpBucketName: marduk-production
+  gcpBucketName: marduk-production/osm/norway-latest.osm.pbf
   slackUrl: ror-prod-slack-url
