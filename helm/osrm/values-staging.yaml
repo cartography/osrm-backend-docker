@@ -1,5 +1,0 @@
-env: test
-cronJob:
-  gcpProject: entur-ror-test
-  gcpBucketName: marduk-test
-  slackUrl: ror-staging-slack-url
