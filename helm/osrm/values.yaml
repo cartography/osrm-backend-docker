@@ -14,9 +14,11 @@ image:
   identifier: ${artifact.metadata.image}
   imagePullPolicy: Always
 
-slackUrlSecret : ${serviceVariable.slackUrlSecret}
-
 service:
   http:
     internalPort: 5000
     externalPort: 80
+
+secrets:
+  slack:
+    - SLACK_URL
